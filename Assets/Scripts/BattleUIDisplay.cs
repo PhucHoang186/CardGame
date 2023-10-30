@@ -16,11 +16,11 @@ namespace UI
         List<CardDisplay> cards = new();
         private Action<int> onMouseEnterCb, onMouseExitCb, onPlayCardCb;
 
-        public void InitActions(Action<int> mouseEnter, Action<int> mouseExit, Action<int> playCard)
+        public void InitActions(Action<int> mouseEnter, Action<int> mouseExit, Action<int> PlayCard)
         {
             onMouseEnterCb = mouseEnter;
             onMouseExitCb = mouseExit;
-            onPlayCardCb = playCard;
+            onPlayCardCb = PlayCard;
         }
 
         public void GenerateCards(List<CardData> cardDatas)
@@ -34,6 +34,23 @@ namespace UI
             }
         }
 
+        // call from card action controller
+        public void PLayCard(int cardIndex)
+        {
+            if (cardIndex < 0)
+                return;
+            CardDisplay cardDisplay = cards[cardIndex];
+            cards.RemoveAt(cardIndex);
+            cardDisplay.DestroyCard();
+            cardMove.PlayCardAnimation(CameraController.Instance.Shake);
+        }
+
+        public void UpdateCardDescription(CardData cardData)
+        {
+            cardDescription.UpdateCardInfo(cardData.CardIcon, cardData.CardName, cardData.CardDescription);
+        }
+
+        // card display action
         private void OnMouseReleased(CardDisplay cardDisplay)
         {
             int index = GetCardItemIndex(cardDisplay);
@@ -49,36 +66,12 @@ namespace UI
             {
                 onPlayCardCb?.Invoke(index);
             }
-
         }
 
         private void OnmouseHolded(CardDisplay cardDisplay)
         {
             cardDisplay.OnSelectCard();
             cardMove.OnStartMove(cardDisplay.CardIcon.sprite, cardDisplay.CardName.text, "cardDisplay.CardDescription.text");
-        }
-
-        public void PLayCard(int cardIndex)
-        {
-            if (cardIndex < 0)
-                return;
-            CardDisplay cardDisplay = cards[cardIndex];
-            cardDisplay.PLayCard();
-            cardMove.PlayCardAnimation();
-        }
-
-        public void UpdateCardDescription(CardData cardData)
-        {
-            cardDescription.UpdateCardInfo(cardData.CardIcon, cardData.CardName, cardData.CardDescription);
-        }
-
-
-        public void OnPlayCard(CardDisplay cardDisplay)
-        {
-            int index = GetCardItemIndex(cardDisplay);
-            if (index < 0)
-                return;
-            
         }
 
         public void OnMouseEntered(CardDisplay cardDisplay)
@@ -102,7 +95,7 @@ namespace UI
             int index = GetCardItemIndex(cardDisplay);
             if (index < 0)
                 return;
-            onPlayCardCb?.Invoke(index);
+            // onPlayCardCb?.Invoke(index);
         }
 
         private int GetCardItemIndex(CardDisplay cardDisplay)

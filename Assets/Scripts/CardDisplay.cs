@@ -100,7 +100,7 @@ namespace UI
             this.scaleSpeed = scaleSpeed;
         }
 
-        public void PLayCard()
+        public void DestroyCard()
         {
             Destroy(this.gameObject);
         }

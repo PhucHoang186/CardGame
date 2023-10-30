@@ -13,11 +13,11 @@ public class ActionCardController : MonoBehaviour
 
     private void Start()
     {
-        cardsDisplayUI.InitActions(OnMouseEntered, OnMouseExited, OnMouseClicked);
+        cardsDisplayUI.InitActions(OnMouseEntered, OnMouseExited, OnPlayedCard);
         GetNewCards();
     }
 
-    private void OnMouseClicked(int index)
+    private void OnPlayedCard(int index)
     {
         if (index >= cardDataContainer.CurrentCardsHolding.Count)
             return;
