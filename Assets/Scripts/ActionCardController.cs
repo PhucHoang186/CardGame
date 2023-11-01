@@ -45,6 +45,4 @@ public class ActionCardController : MonoBehaviour
         (cardNumbers, cardDatasToSpawn) = cardDataContainer.GetNewsCardsFromDeck();
         cardsDisplayUI.GenerateCards(cardDatasToSpawn);
     }
-
-
 }

@@ -10,7 +10,7 @@ namespace Grid
         [SerializeField] GameObject mouseEnterIcon;
         private int xCordinate;
         private int yCordinate;
-        public Vector2 Cordinate => new(xCordinate, yCordinate);
+        public Vector2Int Cordinate => new(xCordinate, yCordinate);
         public bool IsEmpty { get; set; }
 
         public void SetNodeCordinate(int x, int y)
@@ -29,6 +29,11 @@ namespace Grid
         private void OnMouseExit()
         {
             mouseEnterIcon.SetActive(false);
+        }
+
+        public void test()
+        {
+            mouseEnterIcon.SetActive(true);
         }
     }
 }
